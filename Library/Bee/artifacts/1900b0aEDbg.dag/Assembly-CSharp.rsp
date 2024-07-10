@@ -344,7 +344,9 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
 "Assets/Scripts/MyEditorScript.cs"
+"Assets/Scripts/Quest.cs"
 "Assets/Scripts/QuestingTool.cs"
+"Assets/Scripts/QuestManager.cs"
 -langversion:9.0
 
 /deterministic

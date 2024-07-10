@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "E:\\ToolProgramming\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{229614A8-3234-A2DB-8C00-37FFC6CC4E61}|Assembly-CSharp.csproj|e:\\toolprogramming\\assets\\scripts\\questingtool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{229614A8-3234-A2DB-8C00-37FFC6CC4E61}|Assembly-CSharp.csproj|E:\\ToolProgramming\\assets\\scripts\\questingtool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{229614A8-3234-A2DB-8C00-37FFC6CC4E61}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\questingtool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{229614A8-3234-A2DB-8C00-37FFC6CC4E61}|Assembly-CSharp.csproj|E:\\ToolProgramming\\assets\\scripts\\myeditorscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{229614A8-3234-A2DB-8C00-37FFC6CC4E61}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\myeditorscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{229614A8-3234-A2DB-8C00-37FFC6CC4E61}|Assembly-CSharp.csproj|e:\\toolprogramming\\assets\\scripts\\quest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{229614A8-3234-A2DB-8C00-37FFC6CC4E61}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\quest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{229614A8-3234-A2DB-8C00-37FFC6CC4E61}|Assembly-CSharp.csproj|e:\\toolprogramming\\assets\\scripts\\questmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{229614A8-3234-A2DB-8C00-37FFC6CC4E61}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\questmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,19 +22,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MyEditorScript.cs",
-              "DocumentMoniker": "E:\\ToolProgramming\\Assets\\Scripts\\MyEditorScript.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\MyEditorScript.cs",
-              "ToolTip": "E:\\ToolProgramming\\Assets\\Scripts\\MyEditorScript.cs",
-              "RelativeToolTip": "Assets\\Scripts\\MyEditorScript.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
+              "DocumentIndex": 2,
+              "Title": "QuestManager.cs",
+              "DocumentMoniker": "E:\\ToolProgramming\\Assets\\Scripts\\QuestManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\QuestManager.cs",
+              "ToolTip": "E:\\ToolProgramming\\Assets\\Scripts\\QuestManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\QuestManager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACgAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-28T10:03:58.264Z",
+              "WhenOpened": "2024-07-10T12:10:13.028Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Quest.cs",
+              "DocumentMoniker": "E:\\ToolProgramming\\Assets\\Scripts\\Quest.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Quest.cs",
+              "ToolTip": "E:\\ToolProgramming\\Assets\\Scripts\\Quest.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Quest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-10T11:43:44.399Z",
               "EditorCaption": ""
             },
             {
@@ -41,7 +58,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\QuestingTool.cs",
               "ToolTip": "E:\\ToolProgramming\\Assets\\Scripts\\QuestingTool.cs",
               "RelativeToolTip": "Assets\\Scripts\\QuestingTool.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAQwCoAAAAYAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACAAAAAHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-28T09:47:50.086Z",
               "EditorCaption": ""

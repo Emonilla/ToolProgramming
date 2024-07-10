@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\QuestingTool.cs" />
     <Compile Include="Assets\Scripts\MyEditorScript.cs" />
+    <Compile Include="Assets\Scripts\Quest.cs" />
+    <Compile Include="Assets\Scripts\QuestManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UMXL\QuestTool.uxml" />
