@@ -45,16 +45,16 @@ public class QuestingTool : EditorWindow
        questMarkerY.visible = b.newValue;
     }
 
-    private void CreateQuestButton(ChangeEvent<string> b)
+    private void CreateQuestButton()
     {
-        Console.WriteLine("Adding Quest");
-        int Markerx = int.Parse(questMarkerX.value);
-        int Markery = int.Parse(questMarkerY.value);
-        int qID = int.Parse(questID.value);
-        string type = questType.value;
-        int npcid = int.Parse(npcID.value);
-        string description = questDescription.value;
-        string requirements = questRequirements.value;
+        Console.WriteLine(questMarkerX.text);
+        int Markerx = int.Parse(questMarkerX.text);
+        int Markery = int.Parse(questMarkerY.text);
+        int qID = int.Parse(questID.text);
+        string type = questType.text;
+        int npcid = int.Parse(npcID.text);
+        string description = questDescription.text;
+        string requirements = questRequirements.text;
         Quest newQuest = new Quest(type, qID, npcid, description, requirements, staticRewardList, rewardList);
         questManager.AddQuest(newQuest);
     }
@@ -172,7 +172,7 @@ public class QuestingTool : EditorWindow
         createQuest.text = "Create Quest";
         root.Add(createQuest);
 
-        createQuest.RegisterValueChangedCallback(CreateQuestButton);
+        createQuest.clicked += CreateQuestButton;
 
 
 
