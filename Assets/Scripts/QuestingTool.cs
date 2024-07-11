@@ -4,8 +4,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-
-
 public class QuestingTool : EditorWindow
 {
 
@@ -15,7 +13,6 @@ public class QuestingTool : EditorWindow
         QuestManager wnd = GetWindow<QuestManager>();
         wnd.titleContent = new GUIContent("Quest Manager");
 
-        // Initialize QuestingTool with a reference to QuestManager
         QuestingTool questingTool = GetWindow<QuestingTool>();
         questingTool.Initialize(wnd);
     }
@@ -57,6 +54,7 @@ public class QuestingTool : EditorWindow
         string requirements = questRequirements.text;
         Quest newQuest = new Quest(type, qID, npcid, description, requirements, staticRewardList, rewardList);
         questManager.AddQuest(newQuest);
+        Debug.Log("Quest Created");
     }
     private Quest getQuest() { return q; }
 
@@ -67,7 +65,6 @@ public class QuestingTool : EditorWindow
 
     public void CreateGUI()
     {
-             // Each editor window contains a root VisualElement object
              VisualElement root = rootVisualElement;
 
           questType = new DropdownField();
@@ -83,7 +80,6 @@ public class QuestingTool : EditorWindow
           questID.label = "Insert Quest ID";
           root.Add(questID);
 
-
           subQuestToggle = new Toggle();
           subQuestToggle.name = "Sub Quest Toggle";
           subQuestToggle.label = "Activate Sub Quest";
@@ -93,7 +89,8 @@ public class QuestingTool : EditorWindow
           subQuest = new TextField();
           subQuest.name = "Sub Quest";
           subQuest.label = "Insert Sub Quest ID";
-          root.Add(subQuest);
+        subQuest.visible = false;
+        root.Add(subQuest);
           
           npcID = new TextField();
           npcID.name = "NPC ID";
@@ -123,11 +120,6 @@ public class QuestingTool : EditorWindow
           questMarkerY.visible = false;
           root.Add(questMarkerY);
           
-          
-          
-          
-          
- 
           questRequirements = new DropdownField();
           questRequirements.name = "Quest Requirements";
           questRequirements.label = "Quest Requirements";
@@ -140,6 +132,8 @@ public class QuestingTool : EditorWindow
           
           
           staticRewardList = new List<string>();
+          staticRewardList.Add("Gold Coins");
+          staticRewardList.Add("Exp");
           DropdownField chooseRewardItems = new DropdownField();
           chooseRewardItems.name = "Reward Items";
           chooseRewardItems.label = "Reward Items";
@@ -153,8 +147,8 @@ public class QuestingTool : EditorWindow
           
           rewardList = new List<string>();
           
-          rewardList.Add("TreeGenerator");
-          rewardList.Add("Coins");
+          rewardList.Add("Weapon");
+          rewardList.Add("Armor");
           
           DropdownField dynamicRewadsItems = new DropdownField();
           dynamicRewadsItems.name = "Dynamic Reward Items";
@@ -173,8 +167,6 @@ public class QuestingTool : EditorWindow
         root.Add(createQuest);
 
         createQuest.clicked += CreateQuestButton;
-
-
 
     }    
 }

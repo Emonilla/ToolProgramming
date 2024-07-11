@@ -5,7 +5,6 @@ using UnityEngine;
 [Serializable]
 public class Quest : QuestingTool
 {
-    
     public string Type { get; set; }
     public int questID { get; set; }
     public int npcID { get; set; }
@@ -19,16 +18,16 @@ public class Quest : QuestingTool
     public Quest(string ?type, int questID, int npcID, string description, string requirements,
         List<string> staticRewardItems, List<string> chooseRewardItems, int xMarker = -1, int yMarker = -1, int subQuestID = -1)
     {
-        Type = type;
+        this.Type = type;
         this.questID = questID;
         this.npcID = npcID;
-        this.subQuestID = subQuestID;
         this.description = description;
         this.requirements = requirements;
         this.staticRewardItems = staticRewardItems;
         this.chooseRewardItems = chooseRewardItems;
         this.xMarker = xMarker;
         this.yMarker = yMarker;
+        this.subQuestID = subQuestID;
     }
 
     Quest GetQuest()

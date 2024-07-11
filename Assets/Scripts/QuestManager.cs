@@ -92,10 +92,8 @@ public class QuestManager : EditorWindow
         yMarker = new Label { name = "Y Marker" };
         root.Add(yMarker);
 
-        // Initially update labels to default text
         UpdateLabels();
 
-        // Add Save and Load buttons
         Button saveButton = new Button(SaveQuests) { text = "Save Quests" };
         root.Add(saveButton);
 
@@ -135,7 +133,6 @@ public class QuestManager : EditorWindow
             Debug.LogError("Failed to save quests: " + e.Message);
         }
     }
-
     private void LoadQuests()
     {
         string path = Application.dataPath + "/quests.json";
@@ -147,14 +144,12 @@ public class QuestManager : EditorWindow
                 QuestListWrapper wrapper = JsonUtility.FromJson<QuestListWrapper>(json);
                 questList = wrapper.quests;
 
-                // Update dropdown
                 questDropDown.choices.Clear();
                 foreach (var quest in questList)
                 {
                     questDropDown.choices.Add(quest.questID.ToString());
                 }
 
-                // Update the labels with the first quest if available
                 if (questList.Count > 0)
                 {
                     q = questList[0];
