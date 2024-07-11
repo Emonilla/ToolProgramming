@@ -9,7 +9,7 @@ using System.Linq;
 
 public class QuestManager : EditorWindow
 {
-   List<Quest> questList;
+   public List<Quest> questList;
    Quest q;
    [MenuItem("Tools/QuestManager")]
     public static void CreateWindow()
@@ -17,13 +17,17 @@ public class QuestManager : EditorWindow
        QuestManager wnd = GetWindow<QuestManager>();
        wnd.titleContent = new GUIContent("Quest Manager");
     }
-
-
+    
     private void ValueChanged(ChangeEvent<string> b)
     {
         q = questList.First(q => q.questID.ToString() == b.newValue);
     }
 
+    private void fillQuestList(Quest t)
+    {
+
+
+    }
     public void CreateGUI()
     {
         VisualElement root = rootVisualElement;
@@ -84,9 +88,5 @@ public class QuestManager : EditorWindow
         L_yMarker.name = "Label Marker Y Coordinate";
         L_yMarker.text = q.yMarker.ToString();
         root.Add(L_yMarker);
-
-
-
-
     }
 }

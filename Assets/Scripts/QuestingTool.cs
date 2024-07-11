@@ -20,8 +20,14 @@ public class QuestingTool : EditorWindow
     public TextField questMarkerX;
     public TextField questMarkerY;
     public TextField subQuest;
+    TextField questID;
+    DropdownField questType;
     Button createQuest;
+    Toggle subQuestToggle;
+    TextField npcID;
+    TextField questDescription;
     Quest q;
+    QuestManager qManager;
     private void QuestMarkerChanged(ChangeEvent<bool> b)
     {
        questMarkerX.visible = b.newValue;
@@ -30,9 +36,15 @@ public class QuestingTool : EditorWindow
 
     private void CreateQuestButton(ChangeEvent<string> b)
     {
-       
         q.xMarker = int.Parse(questMarkerX.value);
+        q.yMarker = int.Parse(questMarkerY.value);
+        q.questID = int.Parse(questID.value);
+        q.Type = questType.value;
+        q.npcID = int.Parse(npcID.value);
+        q.description = questDescription.value;
+        qManager.questList.Add(q);
     }
+    private Quest getQuest() { return q; }
 
     private void SubQuestToggleChanged(ChangeEvent<bool> b)
     {
@@ -44,21 +56,21 @@ public class QuestingTool : EditorWindow
              // Each editor window contains a root VisualElement object
              VisualElement root = rootVisualElement;
 
-          DropdownField dropdownField = new DropdownField();
-          dropdownField.name = "QuestType";
-          dropdownField.label = "QuestType";
-          dropdownField.choices.Add("Main Quest");
-          dropdownField.choices.Add("Side Quest");
-          dropdownField.index = 0;
-          root.Add(dropdownField);
+          questType = new DropdownField();
+          questType.name = "QuestType";
+          questType.label = "QuestType";
+          questType.choices.Add("Main Quest");
+          questType.choices.Add("Side Quest");
+          questType.index = 0;
+          root.Add(questType);
 
-          TextField questID = new TextField();
+          questID = new TextField();
           questID.name = "Quest ID";
           questID.label = "Insert Quest ID";
           root.Add(questID);
 
 
-          Toggle subQuestToggle = new Toggle();
+          subQuestToggle = new Toggle();
           subQuestToggle.name = "Sub Quest Toggle";
           subQuestToggle.label = "Activate Sub Quest";
           subQuestToggle.RegisterValueChangedCallback(SubQuestToggleChanged);
@@ -69,12 +81,12 @@ public class QuestingTool : EditorWindow
           subQuest.label = "Insert Sub Quest ID";
           root.Add(subQuest);
           
-          TextField npcID = new TextField();
+          npcID = new TextField();
           npcID.name = "NPC ID";
           npcID.label = "Insert NPC ID";
           root.Add(npcID);
           
-          TextField questDescription = new TextField();
+          questDescription = new TextField();
           questDescription.name = "Quest Description";
           questDescription.label = "Quest Description";
           root.Add(questDescription);     
@@ -99,17 +111,9 @@ public class QuestingTool : EditorWindow
           
           
           
-          List<string> itemList = new List<string>();
           
-          /* Change List type to GameObject
-          * 
-          * 
-          * 
-          */
           
-          itemList.Add("Marcos Mutter");
-          itemList.Add("Marcos Mutter2");
-          
+ 
           DropdownField questRequirements = new DropdownField();
           questRequirements.name = "Quest Requirements";
           questRequirements.label = "Quest Requirements";
@@ -121,18 +125,20 @@ public class QuestingTool : EditorWindow
           root.Add(questRequirements);
           
           
+          List<GameObject> staticRewardList = new List<GameObject>();
           
           
           
-          DropdownField rewardItems = new DropdownField();
-          rewardItems.name = "Reward Items";
-          rewardItems.label = "Reward Items";
-          for (int i = 0; i < itemList.Count; i++)
+          
+          DropdownField chooseRewardItems = new DropdownField();
+          chooseRewardItems.name = "Reward Items";
+          chooseRewardItems.label = "Reward Items";
+          for (int i = 0; i < staticRewardList.Count; i++)
           {
-              rewardItems.choices.Add(itemList[i]);
+              chooseRewardItems.choices.Add(staticRewardList[i].name);
           }
-          rewardItems.index = 0;
-          root.Add(rewardItems);
+          chooseRewardItems.index = 0;
+          root.Add(chooseRewardItems);
           
           /* A script that shows the UI in an editor window
            * 
