@@ -10,18 +10,19 @@ using System.IO;
 public class QuestManager : EditorWindow
 {
     public List<Quest> questList;
-    Quest q;
+    private Quest q;
     private VisualElement root;
     private DropdownField questDropDown;
-    private Label L_questType;
-    private Label L_questID;
-    private Label L_npcID;
-    private Label L_description;
-    private Label L_requirements;
-    private Label L_staticRewardItems;
-    private Label L_chooseRewardItems;
-    private Label L_xMarker;
-    private Label L_yMarker;
+    private Label questType;
+    private Label questID;
+    private Label npcID;
+    private Label description;
+    private Label requirements;
+    private Label staticRewardItems;
+    private Label chooseRewardItems;
+    private Label xMarker;
+    private Label yMarker;
+
     [MenuItem("Tools/QuestManager")]
     public static void CreateWindow()
     {
@@ -29,9 +30,9 @@ public class QuestManager : EditorWindow
         wnd.titleContent = new GUIContent("Quest Manager");
     }
 
-    private void ValueChanged(ChangeEvent<string> b)
+    private void ValueChanged(ChangeEvent<string> evt)
     {
-        q = questList.First(q => q.questID.ToString() == b.newValue);
+        q = questList.FirstOrDefault(q => q.questID.ToString() == evt.newValue);
         UpdateLabels();
     }
 
@@ -39,91 +40,100 @@ public class QuestManager : EditorWindow
     {
         if (q == null) return;
 
-        L_questType.text = q.Type.ToString();
-        L_questID.text = q.questID.ToString();
-        L_npcID.text = q.npcID.ToString();
-        L_description.text = q.description;
-        L_requirements.text = q.requirements.ToString();
-        L_staticRewardItems.text = q.staticRewardItems.ToString();
-        L_chooseRewardItems.text = q.chooseRewardItems.ToString();
-        L_xMarker.text = q.xMarker.ToString();
-        L_yMarker.text = q.yMarker.ToString();
+        questType.text = q.Type.ToString();
+        questID.text = q.questID.ToString();
+        npcID.text = q.npcID.ToString();
+        description.text = q.description;
+        requirements.text = q.requirements.ToString();
+        staticRewardItems.text = q.staticRewardItems.ToString();
+        chooseRewardItems.text = q.chooseRewardItems.ToString();
+        xMarker.text = q.xMarker.ToString();
+        yMarker.text = q.yMarker.ToString();
     }
+
     public void CreateGUI()
     {
-        VisualElement root = rootVisualElement;
+        root = rootVisualElement;
 
         questList = new List<Quest>();
 
-        DropdownField questDropDown = new DropdownField();
-        questDropDown.name = "Quest List";
-        questDropDown.label = "Quest List";
-        for (int i = 0; i < questList.Count; i++)
+        questDropDown = new DropdownField
         {
-            questDropDown.choices.Add(Convert.ToString(questList[i].questID));
-        }
+            name = "Quest List",
+            label = "Quest List"
+        };
         questDropDown.RegisterValueChangedCallback(ValueChanged);
         root.Add(questDropDown);
 
-        L_questType = new Label();
-        L_questType.name = "Quest Type";
-        L_questType.text = q.Type.ToString();
-        root.Add(L_questType);
+        questType = new Label { name = "Quest Type" };
+        root.Add(questType);
 
-        L_questID = new Label();
-        L_questID.name = "Label Quest ID";
-        L_questID.text = q.questID.ToString();
-        root.Add(L_questID);
+        questID = new Label { name = "Quest ID" };
+        root.Add(questID);
 
-        L_npcID = new Label();
-        L_npcID.name = "Label NPC ID";
-        L_npcID.text = q.npcID.ToString();
-        root.Add(L_npcID);
+        npcID = new Label { name = "NPC ID" };
+        root.Add(npcID);
 
-        L_description = new Label();
-        L_description.name = "Label Quest Description";
-        L_description.text = q.description;
-        root.Add(L_description);
+        description = new Label { name = "Quest Description" };
+        root.Add(description);
 
-        L_requirements = new Label();
-        L_requirements.name = "Label Requirements";
-        L_requirements.text = q.requirements.ToString();
-        root.Add(L_requirements);
+        requirements = new Label { name = "Requirements" };
+        root.Add(requirements);
 
-        L_staticRewardItems = new Label();
-        L_staticRewardItems.name = "Label Static Reward Items";
-        L_staticRewardItems.text = q.staticRewardItems.ToString();
-        root.Add(L_staticRewardItems);
+        staticRewardItems = new Label { name = "Static Reward Items" };
+        root.Add(staticRewardItems);
 
-        L_chooseRewardItems = new Label();
-        L_chooseRewardItems.name = "Label Choose Reward Items";
-        L_chooseRewardItems.text = q.chooseRewardItems.ToString();
-        root.Add(L_chooseRewardItems);
+        chooseRewardItems = new Label { name = "Choose Reward Items" };
+        root.Add(chooseRewardItems);
 
-        L_xMarker = new Label();
-        L_xMarker.name = "Label Marker X Coordinate";
-        L_xMarker.text = q.xMarker.ToString();
-        root.Add(L_xMarker);
+        xMarker = new Label { name = "X Marker" };
+        root.Add(xMarker);
 
-        L_yMarker = new Label();
-        L_yMarker.name = "Label Marker Y Coordinate";
-        L_yMarker.text = q.yMarker.ToString();
-        root.Add(L_yMarker);
+        yMarker = new Label { name = "Y Marker" };
+        root.Add(yMarker);
 
+        // Initially update labels to default text
         UpdateLabels();
 
-        
+        // Add Save and Load buttons
         Button saveButton = new Button(SaveQuests) { text = "Save Quests" };
         root.Add(saveButton);
 
         Button loadButton = new Button(LoadQuests) { text = "Load Quests" };
         root.Add(loadButton);
     }
+
+    public void AddQuest(Quest newQuest)
+    {
+        if (newQuest == null)
+        {
+            Console.WriteLine("Failed to add Quest");
+        return; 
+        }
+        Console.WriteLine("Quest added");
+        questList.Add(newQuest);
+        questDropDown.choices.Add(newQuest.questID.ToString());
+        if (questList.Count == 1)
+        {
+            q = newQuest;
+            UpdateLabels();
+        }
+    }
+
     private void SaveQuests()
     {
-        string json = JsonUtility.ToJson(new QuestListWrapper { quests = questList });
+        string json = JsonUtility.ToJson(new QuestListWrapper { quests = questList }, true); // Pretty print JSON
         Debug.Log("Saved JSON: " + json); // Print the JSON to the console
-        File.WriteAllText(Application.dataPath + "/quests.json", json);
+        string path = Application.dataPath + "/quests.json";
+        try
+        {
+            File.WriteAllText(path, json);
+            Debug.Log("Quests saved to: " + path);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Failed to save quests: " + e.Message);
+        }
     }
 
     private void LoadQuests()
@@ -131,27 +141,39 @@ public class QuestManager : EditorWindow
         string path = Application.dataPath + "/quests.json";
         if (File.Exists(path))
         {
-            string json = File.ReadAllText(path);
-            QuestListWrapper wrapper = JsonUtility.FromJson<QuestListWrapper>(json);
-            questList = wrapper.quests;
-
-            // Update dropdown
-            questDropDown.choices.Clear();
-            foreach (var quest in questList)
+            try
             {
-                questDropDown.choices.Add(quest.questID.ToString());
+                string json = File.ReadAllText(path);
+                QuestListWrapper wrapper = JsonUtility.FromJson<QuestListWrapper>(json);
+                questList = wrapper.quests;
+
+                // Update dropdown
+                questDropDown.choices.Clear();
+                foreach (var quest in questList)
+                {
+                    questDropDown.choices.Add(quest.questID.ToString());
+                }
+
+                // Update the labels with the first quest if available
+                if (questList.Count > 0)
+                {
+                    q = questList[0];
+                    UpdateLabels();
+                }
+                Debug.Log("Quests loaded from: " + path);
             }
-
-            // Update the labels with the first quest if available
-            if (questList.Count > 0)
+            catch (Exception e)
             {
-                q = questList[0];
-                UpdateLabels();
+                Debug.LogError("Failed to load quests: " + e.Message);
             }
         }
+        else
+        {
+            Debug.LogWarning("No quest file found at: " + path);
+        }
     }
-    
 }
+
 [Serializable]
 public class QuestListWrapper
 {

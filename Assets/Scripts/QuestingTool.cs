@@ -1,9 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEditor.UIElements;
 
 
 
@@ -13,13 +12,20 @@ public class QuestingTool : EditorWindow
     [MenuItem("Tools/QuestTool")]
     public static void CreateWindow()
     {
-        QuestingTool wnd = GetWindow<QuestingTool>();
-        wnd.titleContent = new GUIContent("QuestTool");
+        QuestManager wnd = GetWindow<QuestManager>();
+        wnd.titleContent = new GUIContent("Quest Manager");
+
+        // Initialize QuestingTool with a reference to QuestManager
+        QuestingTool questingTool = GetWindow<QuestingTool>();
+        questingTool.Initialize(wnd);
     }
 
     public TextField questMarkerX;
     public TextField questMarkerY;
     public TextField subQuest;
+    List<string> staticRewardList;
+    List<string> rewardList;
+    DropdownField questRequirements;
     TextField questID;
     DropdownField questType;
     Button createQuest;
@@ -28,6 +34,11 @@ public class QuestingTool : EditorWindow
     TextField questDescription;
     Quest q;
     QuestManager qManager;
+    private QuestManager questManager;
+    public void Initialize(QuestManager manager)
+    {
+        questManager = manager;
+    }
     private void QuestMarkerChanged(ChangeEvent<bool> b)
     {
        questMarkerX.visible = b.newValue;
@@ -36,13 +47,16 @@ public class QuestingTool : EditorWindow
 
     private void CreateQuestButton(ChangeEvent<string> b)
     {
-        q.xMarker = int.Parse(questMarkerX.value);
-        q.yMarker = int.Parse(questMarkerY.value);
-        q.questID = int.Parse(questID.value);
-        q.Type = questType.value;
-        q.npcID = int.Parse(npcID.value);
-        q.description = questDescription.value;
-        qManager.questList.Add(q);
+        Console.WriteLine("Adding Quest");
+        int Markerx = int.Parse(questMarkerX.value);
+        int Markery = int.Parse(questMarkerY.value);
+        int qID = int.Parse(questID.value);
+        string type = questType.value;
+        int npcid = int.Parse(npcID.value);
+        string description = questDescription.value;
+        string requirements = questRequirements.value;
+        Quest newQuest = new Quest(type, qID, npcid, description, requirements, staticRewardList, rewardList);
+        questManager.AddQuest(newQuest);
     }
     private Quest getQuest() { return q; }
 
@@ -114,7 +128,7 @@ public class QuestingTool : EditorWindow
           
           
  
-          DropdownField questRequirements = new DropdownField();
+          questRequirements = new DropdownField();
           questRequirements.name = "Quest Requirements";
           questRequirements.label = "Quest Requirements";
           questRequirements.choices.Add("Kill Quest");
@@ -125,28 +139,19 @@ public class QuestingTool : EditorWindow
           root.Add(questRequirements);
           
           
-          List<GameObject> staticRewardList = new List<GameObject>();
-          
-          
-          
-          
+          staticRewardList = new List<string>();
           DropdownField chooseRewardItems = new DropdownField();
           chooseRewardItems.name = "Reward Items";
           chooseRewardItems.label = "Reward Items";
           for (int i = 0; i < staticRewardList.Count; i++)
           {
-              chooseRewardItems.choices.Add(staticRewardList[i].name);
+              chooseRewardItems.choices.Add(staticRewardList[i]);
           }
           chooseRewardItems.index = 0;
           root.Add(chooseRewardItems);
           
-          /* A script that shows the UI in an editor window
-           * 
-           * 
-           * 
-           */
           
-          List<string> rewardList = new List<string>();
+          rewardList = new List<string>();
           
           rewardList.Add("TreeGenerator");
           rewardList.Add("Coins");
